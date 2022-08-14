@@ -1,6 +1,190 @@
 {
-	"name": "PL_JSON_TO_SQL_STAGE",
+	"name": "PL_JSON_TO_SQL",
 	"properties": {
+		"activities": [
+			{
+				"name": "Teams to SQL",
+				"description": "Copies team data from JSON to SQL staging area",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"modifiedDatetimeStart": "2022-08-14T00:00:00.885Z",
+							"wildcardFileName": "teams.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "TRUNCATE TABLE stage.Teams",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "['id']"
+								},
+								"sink": {
+									"name": "id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['name']"
+								},
+								"sink": {
+									"name": "name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['link']"
+								},
+								"sink": {
+									"name": "link",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['venue']['name']"
+								},
+								"sink": {
+									"name": "venue_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['venue']['link']"
+								},
+								"sink": {
+									"name": "venue_link",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['venue']['city']"
+								},
+								"sink": {
+									"name": "city",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['abbreviation']"
+								},
+								"sink": {
+									"name": "abbreviation",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['firstYearOfPlay']"
+								},
+								"sink": {
+									"name": "firstYearOfPlay",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['division']['id']"
+								},
+								"sink": {
+									"name": "division_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['division']['name']"
+								},
+								"sink": {
+									"name": "division_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['conference']['id']"
+								},
+								"sink": {
+									"name": "conference_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['franchise']['id']"
+								},
+								"sink": {
+									"name": "fanchise_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['officialSiteUrl']"
+								},
+								"sink": {
+									"name": "officialSiteUrl",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['active']"
+								},
+								"sink": {
+									"name": "active",
+									"type": "String"
+								}
+							}
+						],
+						"collectionReference": "$['teams']",
+						"mapComplexValuesToString": false
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NHLDW_STAGE_STORAGE",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "stage_Teams",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
 		"annotations": []
 	}
 }

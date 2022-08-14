@@ -16,7 +16,7 @@
 				}
 			},
 			{
-				"name": "PL_JSON_TO_SQL_STAGE",
+				"name": "PL_JSON_TO_SQL",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
@@ -29,7 +29,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "PL_JSON_TO_SQL_STAGE",
+						"referenceName": "PL_JSON_TO_SQL",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
