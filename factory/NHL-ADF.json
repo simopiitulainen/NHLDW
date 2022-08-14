@@ -1,0 +1,9 @@
+{
+	"name": "NHL-ADF",
+	"location": "northeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "ee1ba251-a2f2-481b-84f2-b3fdda7807a5",
+		"tenantId": "ee085aa6-d25e-48b5-990d-56a9f91d9e2d"
+	}
+}
