@@ -26,6 +26,87 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Loop through API Endpoints",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get API Paths to loop",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get API Paths to loop').output",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy data from API to JSON",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "JsonSource",
+									"storeSettings": {
+										"type": "HttpReadSettings",
+										"requestMethod": "GET"
+									},
+									"formatSettings": {
+										"type": "JsonReadSettings"
+									}
+								},
+								"sink": {
+									"type": "JsonSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "JsonWriteSettings",
+										"filePattern": "arrayOfObjects"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "NHL_API_JSON",
+									"type": "DatasetReference",
+									"parameters": {
+										"relativePath": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "NHLDW_STAGE_STORAGE",
+									"type": "DatasetReference",
+									"parameters": {
+										"fileName": {
+											"value": "@replace(item(),'/','_')",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
 			}
 		],
 		"annotations": []
