@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[API_PATHS]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [relative_path] VARCHAR(1000) NULL, 
+    [Description] VARCHAR(1000) NULL 
+)

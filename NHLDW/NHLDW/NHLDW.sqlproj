@@ -64,12 +64,20 @@
     <Folder Include="Tables" />
     <Folder Include="Views" />
     <Folder Include="Functions" />
+    <Folder Include="DeploymentScripts" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schemas\stage.sql" />
     <Build Include="Tables\stage.Teams.sql" />
+    <Build Include="Tables\dbo.API_PATHS.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="NHLDW.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="DeploymentScripts\Script.PreDeployment1.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="DeploymentScripts\Script.PostDeployment1.sql" />
   </ItemGroup>
 </Project>
