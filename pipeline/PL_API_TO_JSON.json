@@ -32,7 +32,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Set variable1",
+						"activity": "Set results to Array variable",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -86,7 +86,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"relativePath": {
-											"value": "@item()",
+											"value": "@item().relative_path",
 											"type": "Expression"
 										}
 									}
@@ -103,7 +103,7 @@
 				}
 			},
 			{
-				"name": "Set variable1",
+				"name": "Set results to Array variable",
 				"type": "SetVariable",
 				"dependsOn": [
 					{
@@ -117,7 +117,7 @@
 				"typeProperties": {
 					"variableName": "relative_paths",
 					"value": {
-						"value": "@activity('Get API Paths to loop').output.ResultSets.rows",
+						"value": "@activity('Get API Paths to loop').output.ResultSets[0].rows",
 						"type": "Expression"
 					}
 				}
