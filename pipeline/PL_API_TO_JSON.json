@@ -3,8 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
-				"type": "Copy",
+				"name": "Get API Paths to loop",
+				"type": "Script",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
@@ -14,8 +14,17 @@
 					"secureInput": false
 				},
 				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "NHLDW",
+					"type": "LinkedServiceReference"
+				},
 				"typeProperties": {
-					"enableStaging": false
+					"scripts": [
+						{
+							"type": "Query",
+							"text": "SELECT [relative_path] FROM dbo.API_PATHS"
+						}
+					]
 				}
 			}
 		],

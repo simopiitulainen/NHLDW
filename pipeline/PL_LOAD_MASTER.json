@@ -1,6 +1,41 @@
 {
 	"name": "PL_LOAD_MASTER",
 	"properties": {
+		"activities": [
+			{
+				"name": "PL_API_TO_JSON",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_API_TO_JSON",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "PL_JSON_TO_SQL_STAGE",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "PL_API_TO_JSON",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_JSON_TO_SQL_STAGE",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
 		"annotations": []
 	}
 }
