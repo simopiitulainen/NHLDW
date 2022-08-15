@@ -1,0 +1,191 @@
+{
+	"name": "stage_Standings",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "NHLDW",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "standingsType",
+				"type": "varchar"
+			},
+			{
+				"name": "division_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "division_name",
+				"type": "varchar"
+			},
+			{
+				"name": "division_abbreviation",
+				"type": "varchar"
+			},
+			{
+				"name": "conference_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "conference_name",
+				"type": "varchar"
+			},
+			{
+				"name": "team_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "team_name",
+				"type": "varchar"
+			},
+			{
+				"name": "wins",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "losses",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ot",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "regulationWins",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "goalsAgainst",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "goalsScored",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "points",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "divisionRank",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "divisionL10Ranks",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "divisionRoadRank",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "divisionHomeRank",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "conferenceRank",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "leagueRank",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "leagueL10Rank",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "leagueRoadRank",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "leagueHomeRank",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "wildCardrank",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "row",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "gamesPlayed",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "streakType",
+				"type": "varchar"
+			},
+			{
+				"name": "streakNumber",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "streakCode",
+				"type": "varchar"
+			},
+			{
+				"name": "clinchIndicatior",
+				"type": "varchar"
+			},
+			{
+				"name": "pointsPercentage",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 5
+			},
+			{
+				"name": "ppDivisionRank",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ppConferenceRank",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ppLeagueRank",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "lastUpdated",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "stage",
+			"table": "Standings"
+		}
+	}
+}

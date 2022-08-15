@@ -6,7 +6,14 @@
 				"name": "Teams to SQL",
 				"description": "Copies team data from JSON to SQL staging area",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Truncate staging tables",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -31,7 +38,6 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "TRUNCATE TABLE stage.Teams",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
 						"disableMetricsCollection": false
@@ -183,6 +189,439 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Standings to SQL",
+				"description": "Copies standings data from JSON to SQL staging area",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Teams to SQL",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"modifiedDatetimeStart": "2022-08-14T00:00:00.885Z",
+							"wildcardFileName": "standings.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "['standingsType']"
+								},
+								"sink": {
+									"name": "standingsType",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['division']['id']"
+								},
+								"sink": {
+									"name": "division_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['division']['name']"
+								},
+								"sink": {
+									"name": "division_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['division']['abbreviation']"
+								},
+								"sink": {
+									"name": "division_abbreviation",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['conference']['id']"
+								},
+								"sink": {
+									"name": "conference_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['conference']['name']"
+								},
+								"sink": {
+									"name": "conference_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['team']['id']"
+								},
+								"sink": {
+									"name": "team_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['[\\'team\\'][\\'name\\']']"
+								},
+								"sink": {
+									"name": "team_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['wins']"
+								},
+								"sink": {
+									"name": "wins",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['losses']"
+								},
+								"sink": {
+									"name": "losses",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['leagueRecord']['ot']"
+								},
+								"sink": {
+									"name": "ot",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['regulationWins']"
+								},
+								"sink": {
+									"name": "regulationWins",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['goalsAgainst']"
+								},
+								"sink": {
+									"name": "goalsAgainst",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['goalsScored']"
+								},
+								"sink": {
+									"name": "goalsScored",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['points']"
+								},
+								"sink": {
+									"name": "points",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['divisionRank']"
+								},
+								"sink": {
+									"name": "divisionRank",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['divisionL10Rank']"
+								},
+								"sink": {
+									"name": "Division10LRank"
+								}
+							},
+							{
+								"source": {
+									"path": "['divisionRoadRank']"
+								},
+								"sink": {
+									"name": "divisionRoadRank",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['divisionHomeRank']"
+								},
+								"sink": {
+									"name": "divisionHomeRank",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['conferenceRank']"
+								},
+								"sink": {
+									"name": "conferenceRank",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['conferenceL10Rank']"
+								},
+								"sink": {
+									"name": "conference10LRank"
+								}
+							},
+							{
+								"source": {
+									"path": "['conferenceRoadRank']"
+								},
+								"sink": {
+									"name": "conferenceRoadRank"
+								}
+							},
+							{
+								"source": {
+									"path": "['conferenceHomeRank']"
+								},
+								"sink": {
+									"name": "conferenceHomeRank"
+								}
+							},
+							{
+								"source": {
+									"path": "['leagueRank']"
+								},
+								"sink": {
+									"name": "leagueRank",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['leagueL10Rank']"
+								},
+								"sink": {
+									"name": "leagueL10Rank",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['leagueRoadRank']"
+								},
+								"sink": {
+									"name": "leagueRoadRank",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['leagueHomeRank']"
+								},
+								"sink": {
+									"name": "leagueHomeRank",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['wildCardRank']"
+								},
+								"sink": {
+									"name": "wildCardRank"
+								}
+							},
+							{
+								"source": {
+									"path": "['row']"
+								},
+								"sink": {
+									"name": "row",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['gamesPlayed']"
+								},
+								"sink": {
+									"name": "gamesPlayed",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['streakType']"
+								},
+								"sink": {
+									"name": "streakType",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['streakNumber']"
+								},
+								"sink": {
+									"name": "streakNumber",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['streakCode']"
+								},
+								"sink": {
+									"name": "streakCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['clinchIndicator']"
+								},
+								"sink": {
+									"name": "clinchIndicator"
+								}
+							},
+							{
+								"source": {
+									"path": "['pointsPercentage']"
+								},
+								"sink": {
+									"name": "pointsPercentage",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "['ppDivisionRank']"
+								},
+								"sink": {
+									"name": "ppDivisionRank",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['ppConferenceRank']"
+								},
+								"sink": {
+									"name": "ppConferenceRank",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['ppLeagueRank']"
+								},
+								"sink": {
+									"name": "ppLeagueRank",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "['lastUpdated']"
+								},
+								"sink": {
+									"name": "lastUpdated",
+									"type": "DateTime"
+								}
+							}
+						],
+						"collectionReference": "$['records']",
+						"mapComplexValuesToString": false
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "NHLDW_STAGE_STORAGE",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "stage_Standings",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Truncate staging tables",
+				"description": "Truncates tables in stagin schema",
+				"type": "Script",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "NHLDW",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": "TRUNCATE TABLE stage.Teams\nTRUNCATE TABLE stage.Standings"
+						}
+					]
+				}
 			}
 		],
 		"annotations": []
