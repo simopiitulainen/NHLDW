@@ -586,7 +586,7 @@
 								}
 							}
 						],
-						"collectionReference": "",
+						"collectionReference": "$['records]",
 						"mapComplexValuesToString": false
 					}
 				},
