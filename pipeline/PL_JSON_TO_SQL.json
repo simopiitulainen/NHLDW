@@ -326,7 +326,7 @@
 							},
 							{
 								"source": {
-									"path": "]['ot']"
+									"path": "['ot']"
 								},
 								"sink": {
 									"name": "ot",
@@ -383,7 +383,8 @@
 									"path": "['divisionL10Rank']"
 								},
 								"sink": {
-									"name": "divisionL10Rank"
+									"name": "divisionL10Rank",
+									"type": "Int32"
 								}
 							},
 							{
@@ -418,7 +419,8 @@
 									"path": "['conferenceL10Rank']"
 								},
 								"sink": {
-									"name": "conference10LRank"
+									"name": "conference10LRank",
+									"type": "Int32"
 								}
 							},
 							{
@@ -426,7 +428,8 @@
 									"path": "['conferenceRoadRank']"
 								},
 								"sink": {
-									"name": "conferenceRoadRank"
+									"name": "conferenceRoadRank",
+									"type": "Int32"
 								}
 							},
 							{
@@ -434,7 +437,8 @@
 									"path": "['conferenceHomeRank']"
 								},
 								"sink": {
-									"name": "conferenceHomeRank"
+									"name": "conferenceHomeRank",
+									"type": "Int32"
 								}
 							},
 							{
@@ -478,7 +482,8 @@
 									"path": "['wildCardRank']"
 								},
 								"sink": {
-									"name": "wildCardRank"
+									"name": "wildCardRank",
+									"type": "Int32"
 								}
 							},
 							{
@@ -531,7 +536,8 @@
 									"path": "['clinchIndicator']"
 								},
 								"sink": {
-									"name": "clinchIndicator"
+									"name": "clinchIndicator",
+									"type": "String"
 								}
 							},
 							{
@@ -580,7 +586,7 @@
 								}
 							}
 						],
-						"collectionReference": "$['records']",
+						"collectionReference": "",
 						"mapComplexValuesToString": false
 					}
 				},
