@@ -326,7 +326,7 @@
 							},
 							{
 								"source": {
-									"path": "['leagueRecord']['ot']"
+									"path": "]['ot']"
 								},
 								"sink": {
 									"name": "ot",
@@ -384,15 +384,6 @@
 								},
 								"sink": {
 									"name": "divisionL10Rank"
-								}
-							},
-							{
-								"source": {
-									"path": "['divisionL10Rank']"
-								},
-								"sink": {
-									"name": "divisionL10Ranks",
-									"type": "Int32"
 								}
 							},
 							{
