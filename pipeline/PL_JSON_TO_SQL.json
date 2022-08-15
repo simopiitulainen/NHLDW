@@ -299,7 +299,7 @@
 							},
 							{
 								"source": {
-									"path": "$['[\\'team\\'][\\'name\\']']"
+									"path": "['team']['name']"
 								},
 								"sink": {
 									"name": "team_name",
@@ -383,7 +383,16 @@
 									"path": "['divisionL10Rank']"
 								},
 								"sink": {
-									"name": "Division10LRank"
+									"name": "divisionL10Rank"
+								}
+							},
+							{
+								"source": {
+									"path": "['divisionL10Rank']"
+								},
+								"sink": {
+									"name": "divisionL10Ranks",
+									"type": "Int32"
 								}
 							},
 							{
