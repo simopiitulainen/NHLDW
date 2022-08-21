@@ -98,7 +98,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"endpoint": {
-											"value": "@item().value",
+											"value": "@item().relative_path",
 											"type": "Expression"
 										}
 									}
