@@ -5,6 +5,11 @@
 			"referenceName": "nhldwstaging",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"endpoint": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {
