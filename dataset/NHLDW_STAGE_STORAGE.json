@@ -2,7 +2,7 @@
 	"name": "NHLDW_STAGE_STORAGE",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "nhldwstaging",
+			"referenceName": "nhldwstaging_dl2",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
@@ -14,12 +14,8 @@
 		"type": "Json",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@dataset().endpoint",
-					"type": "Expression"
-				},
-				"container": "staging"
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "staging"
 			}
 		},
 		"schema": {}
