@@ -95,7 +95,13 @@
 							"outputs": [
 								{
 									"referenceName": "NHLDW_STAGE_STORAGE",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"endpoint": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
