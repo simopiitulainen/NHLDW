@@ -72,14 +72,16 @@
 								"sink": {
 									"type": "JsonSink",
 									"storeSettings": {
-										"type": "AzureBlobStorageWriteSettings"
+										"type": "AzureBlobStorageWriteSettings",
+										"maxConcurrentConnections": 1
 									},
 									"formatSettings": {
 										"type": "JsonWriteSettings",
 										"filePattern": "arrayOfObjects"
 									}
 								},
-								"enableStaging": false
+								"enableStaging": false,
+								"parallelCopies": 1
 							},
 							"inputs": [
 								{
