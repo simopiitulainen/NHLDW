@@ -98,7 +98,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"endpoint": {
-											"value": "@item()",
+											"value": "@item().value",
 											"type": "Expression"
 										}
 									}
