@@ -44,6 +44,7 @@
 						"value": "@variables('relative_paths')",
 						"type": "Expression"
 					},
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "Copy data from API to JSON",
@@ -129,6 +130,7 @@
 				}
 			}
 		],
+		"concurrency": 1,
 		"variables": {
 			"relative_paths": {
 				"type": "Array"
