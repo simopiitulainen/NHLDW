@@ -1,0 +1,19 @@
+{
+	"name": "nhldwstaging_dl2",
+	"properties": {
+		"description": "Storage for json files fetched from NHL \nAPI",
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://nhldwstaging.dfs.core.windows.net/",
+			"accountKey": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "NHLDW_KW",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "nhldwstaging"
+			}
+		}
+	}
+}
