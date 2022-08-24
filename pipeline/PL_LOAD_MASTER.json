@@ -16,7 +16,27 @@
 				}
 			},
 			{
-				"name": "PL_JSON_TO_SQL",
+				"name": "PL_CSV_TO_DATABASE",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "PL_JSON_TO_CSV",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_CSV_TO_DATABASE",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "PL_JSON_TO_CSV",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
@@ -29,7 +49,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "PL_CSV_TO_DATABASE",
+						"referenceName": "PL_JSON_TO_CSV",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
