@@ -84,7 +84,7 @@
 		],
 		"typeProperties": {
 			"schema": "stage",
-			"table": "Teams"
+			"table": "teamss"
 		}
 	}
 }
