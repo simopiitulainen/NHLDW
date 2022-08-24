@@ -24,16 +24,16 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "JsonSource",
+						"type": "DelimitedTextSource",
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
-							"modifiedDatetimeStart": "2022-08-14T00:00:00.885Z",
-							"wildcardFileName": "teams.json",
+							"wildcardFolderPath": "teams",
+							"wildcardFileName": "part*.csv",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
-							"type": "JsonReadSettings"
+							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
@@ -48,7 +48,8 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "['id']"
+									"name": "teams_id",
+									"type": "String"
 								},
 								"sink": {
 									"name": "id",
@@ -57,16 +58,8 @@
 							},
 							{
 								"source": {
-									"path": "['name']"
-								},
-								"sink": {
-									"name": "name",
+									"name": "teams_active",
 									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "['link']"
 								},
 								"sink": {
 									"name": "link",
@@ -75,7 +68,8 @@
 							},
 							{
 								"source": {
-									"path": "['venue']['name']"
+									"name": "teams_firstYearOfPlay",
+									"type": "String"
 								},
 								"sink": {
 									"name": "venue_name",
@@ -84,7 +78,8 @@
 							},
 							{
 								"source": {
-									"path": "['venue']['link']"
+									"name": "teams_franchiseId",
+									"type": "String"
 								},
 								"sink": {
 									"name": "venue_link",
@@ -93,7 +88,8 @@
 							},
 							{
 								"source": {
-									"path": "['venue']['city']"
+									"name": "teams_id",
+									"type": "String"
 								},
 								"sink": {
 									"name": "city",
@@ -102,7 +98,8 @@
 							},
 							{
 								"source": {
-									"path": "['abbreviation']"
+									"name": "teams_link",
+									"type": "String"
 								},
 								"sink": {
 									"name": "abbreviation",
@@ -111,7 +108,28 @@
 							},
 							{
 								"source": {
-									"path": "['firstYearOfPlay']"
+									"name": "teams_locationName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "team_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "teams_name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "location_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "teams_officialSiteUrl",
+									"type": "String"
 								},
 								"sink": {
 									"name": "firstYearOfPlay",
@@ -120,7 +138,8 @@
 							},
 							{
 								"source": {
-									"path": "['division']['id']"
+									"name": "teams_shortName",
+									"type": "String"
 								},
 								"sink": {
 									"name": "division_id",
@@ -129,7 +148,8 @@
 							},
 							{
 								"source": {
-									"path": "['division']['name']"
+									"name": "teams_teamName",
+									"type": "String"
 								},
 								"sink": {
 									"name": "division_name",
@@ -138,7 +158,18 @@
 							},
 							{
 								"source": {
-									"path": "['conference']['id']"
+									"name": "teams_conference_id",
+									"type": "String"
+								},
+								"sink": {
+									"name": "name_short",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "teams_conference_link",
+									"type": "String"
 								},
 								"sink": {
 									"name": "conference_id",
@@ -147,7 +178,8 @@
 							},
 							{
 								"source": {
-									"path": "['franchise']['id']"
+									"name": "teams_conference_name",
+									"type": "String"
 								},
 								"sink": {
 									"name": "fanchise_id",
@@ -156,7 +188,8 @@
 							},
 							{
 								"source": {
-									"path": "['officialSiteUrl']"
+									"name": "teams_division_abbreviation",
+									"type": "String"
 								},
 								"sink": {
 									"name": "officialSiteUrl",
@@ -165,21 +198,20 @@
 							},
 							{
 								"source": {
-									"path": "['active']"
+									"name": "teams_division_id",
+									"type": "String"
 								},
 								"sink": {
 									"name": "active",
 									"type": "String"
 								}
 							}
-						],
-						"collectionReference": "$['teams']",
-						"mapComplexValuesToString": false
+						]
 					}
 				},
 				"inputs": [
 					{
-						"referenceName": "NHLDW_STAGE_STORAGE",
+						"referenceName": "Generic_Csv",
 						"type": "DatasetReference"
 					}
 				],
