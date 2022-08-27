@@ -15,8 +15,8 @@
 			"columnDelimiter": ";",
 			"encodingName": "UTF-8",
 			"escapeChar": "",
-			"firstRowAsHeader": true,
-			"quoteChar": "\""
+			"firstRowAsHeader": false,
+			"quoteChar": ""
 		},
 		"schema": [
 			{
