@@ -5,7 +5,14 @@
 			{
 				"name": "ForEach1",
 				"type": "ForEach",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Data to SQL Staging tables_copy1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
@@ -17,14 +24,7 @@
 							"name": "Data to SQL Staging tables",
 							"description": "Copies team data from JSON to SQL staging area",
 							"type": "Copy",
-							"dependsOn": [
-								{
-									"activity": "Truncate staging tables",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
+							"dependsOn": [],
 							"policy": {
 								"timeout": "7.00:00:00",
 								"retry": 0,
@@ -44,7 +44,7 @@
 											"value": "@item()",
 											"type": "Expression"
 										},
-										"wildcardFileName": "part*.csv",
+										"wildcardFileName": "test_standings.csv",
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
@@ -55,10 +55,315 @@
 									"type": "AzureSqlSink",
 									"writeBehavior": "insert",
 									"sqlWriterUseTableLock": false,
-									"tableOption": "autoCreate",
 									"disableMetricsCollection": false
 								},
-								"enableStaging": false
+								"enableStaging": false,
+								"dataIntegrationUnits": 2,
+								"translator": {
+									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"name": "copyright",
+												"type": "String"
+											},
+											"sink": {
+												"name": "copyright",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_abbreviation",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_abbreviation",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_active",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_active",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_firstYearOfPlay",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_firstYearOfPlay",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_franchiseId",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_franchiseId",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_id",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_id",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_link",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_link",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_locationName",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_locationName",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_name",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_name",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_officialSiteUrl",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_officialSiteUrl",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_shortName",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_shortName",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_teamName",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_teamName",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_conference_id",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_conference_id",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_conference_link",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_conference_link",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_conference_name",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_conference_name",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_division_abbreviation",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_division_abbreviation",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_division_id",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_division_id",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_division_link",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_division_link",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_division_name",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_division_name",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_division_nameShort",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_division_nameShort",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_franchise_franchiseId",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_franchise_franchiseId",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_franchise_link",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_franchise_link",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_franchise_teamName",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_franchise_teamName",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_venue_city",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_venue_city",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_venue_id",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_venue_id",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_venue_link",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_venue_link",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_venue_name",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_venue_name",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_venue_timeZone_id",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_venue_timeZone_id",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_venue_timeZone_offset",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_venue_timeZone_offset",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "teams_venue_timeZone_tz",
+												"type": "String"
+											},
+											"sink": {
+												"name": "teams_venue_timeZone_tz",
+												"type": "String"
+											}
+										}
+									]
+								}
 							},
 							"inputs": [
 								{
@@ -79,58 +384,86 @@
 									}
 								}
 							]
-						},
-						{
-							"name": "Truncate staging tables",
-							"type": "Script",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"linkedServiceName": {
-								"referenceName": "NHLDW",
-								"type": "LinkedServiceReference"
-							},
-							"typeProperties": {
-								"scripts": [
-									{
-										"parameters": [
-											{
-												"name": "schema",
-												"type": "String",
-												"value": "stage",
-												"direction": "Input"
-											},
-											{
-												"name": "table",
-												"type": "String",
-												"value": {
-													"value": "@item()",
-													"type": "Expression"
-												},
-												"direction": "Input"
-											}
-										],
-										"type": "NonQuery",
-										"text": "DECLARE @stmt nvarchar(max) = 'TRUNCATE TABLE  ' + @schema + '.' + @table\nEXEC sp_executesql @stmt"
-									}
-								]
-							}
 						}
 					]
 				}
+			},
+			{
+				"name": "Data to SQL Staging tables_copy1",
+				"description": "Copies team data from JSON to SQL staging area",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": false,
+							"modifiedDatetimeStart": "2022-08-27T00:00:00.945Z",
+							"wildcardFolderPath": "standings",
+							"wildcardFileName": "test_standings.csv",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"parallelCopies": 1,
+					"enableSkipIncompatibleRow": true,
+					"validateDataConsistency": false,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Info",
+							"enableReliableLogging": true
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "nhldwstaging_dl2",
+								"type": "LinkedServiceReference"
+							},
+							"path": "staging"
+						}
+					},
+					"dataIntegrationUnits": 2
+				},
+				"inputs": [
+					{
+						"referenceName": "Generic_Csv",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "GENERIC_SQL_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": "stage",
+							"table": "teams"
+						}
+					}
+				]
 			}
 		],
 		"parameters": {
 			"folders": {
 				"type": "array",
 				"defaultValue": [
-					"teams",
 					"standings"
 				]
 			}
