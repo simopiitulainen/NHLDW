@@ -14,9 +14,9 @@
 			},
 			"columnDelimiter": ";",
 			"encodingName": "UTF-8",
-			"escapeChar": "",
-			"firstRowAsHeader": false,
-			"quoteChar": ""
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
 		},
 		"schema": [
 			{
