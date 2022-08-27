@@ -3,252 +3,137 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Teams to SQL",
-				"description": "Copies team data from JSON to SQL staging area",
-				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Truncate staging tables",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "DelimitedTextSource",
-						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"wildcardFolderPath": "teams",
-							"wildcardFileName": "part*.csv",
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
-						}
-					},
-					"sink": {
-						"type": "AzureSqlSink",
-						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": false,
-						"disableMetricsCollection": false
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "teams_id",
-									"type": "String"
-								},
-								"sink": {
-									"name": "id",
-									"type": "Int32"
-								}
-							},
-							{
-								"source": {
-									"name": "teams_active",
-									"type": "String"
-								},
-								"sink": {
-									"name": "link",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "teams_firstYearOfPlay",
-									"type": "String"
-								},
-								"sink": {
-									"name": "venue_name",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "teams_franchiseId",
-									"type": "String"
-								},
-								"sink": {
-									"name": "venue_link",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "teams_id",
-									"type": "String"
-								},
-								"sink": {
-									"name": "city",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "teams_link",
-									"type": "String"
-								},
-								"sink": {
-									"name": "abbreviation",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "teams_locationName",
-									"type": "String"
-								},
-								"sink": {
-									"name": "team_name",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "teams_name",
-									"type": "String"
-								},
-								"sink": {
-									"name": "location_name",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "teams_officialSiteUrl",
-									"type": "String"
-								},
-								"sink": {
-									"name": "firstYearOfPlay",
-									"type": "Int32"
-								}
-							},
-							{
-								"source": {
-									"name": "teams_shortName",
-									"type": "String"
-								},
-								"sink": {
-									"name": "division_id",
-									"type": "Int32"
-								}
-							},
-							{
-								"source": {
-									"name": "teams_teamName",
-									"type": "String"
-								},
-								"sink": {
-									"name": "division_name",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "teams_conference_id",
-									"type": "String"
-								},
-								"sink": {
-									"name": "name_short",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "teams_conference_link",
-									"type": "String"
-								},
-								"sink": {
-									"name": "conference_id",
-									"type": "Int32"
-								}
-							},
-							{
-								"source": {
-									"name": "teams_conference_name",
-									"type": "String"
-								},
-								"sink": {
-									"name": "fanchise_id",
-									"type": "Int32"
-								}
-							},
-							{
-								"source": {
-									"name": "teams_division_abbreviation",
-									"type": "String"
-								},
-								"sink": {
-									"name": "officialSiteUrl",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "teams_division_id",
-									"type": "String"
-								},
-								"sink": {
-									"name": "active",
-									"type": "String"
-								}
-							}
-						]
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "Generic_Csv",
-						"type": "DatasetReference"
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "stage_Teams",
-						"type": "DatasetReference"
-					}
-				]
-			},
-			{
-				"name": "Truncate staging tables",
-				"description": "Truncates tables in stagin schema",
-				"type": "Script",
+				"name": "ForEach1",
+				"type": "ForEach",
 				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
 				"userProperties": [],
-				"linkedServiceName": {
-					"referenceName": "NHLDW",
-					"type": "LinkedServiceReference"
-				},
 				"typeProperties": {
-					"scripts": [
+					"items": {
+						"value": "@pipeline().parameters.folders",
+						"type": "Expression"
+					},
+					"activities": [
 						{
-							"type": "Query",
-							"text": "TRUNCATE TABLE stage.Teams\nTRUNCATE TABLE stage.Standings"
+							"name": "Teams to SQL",
+							"description": "Copies team data from JSON to SQL staging area",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "Script1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": false,
+										"wildcardFolderPath": {
+											"value": "@item()",
+											"type": "Expression"
+										},
+										"wildcardFileName": "part*.csv",
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false,
+									"tableOption": "autoCreate",
+									"disableMetricsCollection": false
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "Generic_Csv",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "GENERIC_SQL_DS",
+									"type": "DatasetReference",
+									"parameters": {
+										"schema": "stage",
+										"table": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"name": "Script1",
+							"type": "Script",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"linkedServiceName": {
+								"referenceName": "NHLDW",
+								"type": "LinkedServiceReference"
+							},
+							"typeProperties": {
+								"scripts": [
+									{
+										"parameters": [
+											{
+												"name": "schema",
+												"type": "String",
+												"value": "stage",
+												"direction": "Input"
+											},
+											{
+												"name": "table",
+												"type": "String",
+												"value": {
+													"value": "@item()",
+													"type": "Expression"
+												},
+												"direction": "Input"
+											}
+										],
+										"type": "NonQuery",
+										"text": "DECLARE @stmt nvarchar(max) = 'DROP TABLE IF EXISTS ' + @schema + '.' + @table\nEXEC sp_executesql @stmt"
+									}
+								]
+							}
 						}
 					]
 				}
 			}
 		],
+		"parameters": {
+			"folders": {
+				"type": "array",
+				"defaultValue": [
+					"teams",
+					"standings"
+				]
+			}
+		},
 		"annotations": []
 	}
 }
