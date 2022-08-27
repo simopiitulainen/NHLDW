@@ -55,6 +55,7 @@
 									"type": "AzureSqlSink",
 									"writeBehavior": "insert",
 									"sqlWriterUseTableLock": false,
+									"tableOption": "autoCreate",
 									"disableMetricsCollection": false
 								},
 								"enableStaging": false,
@@ -72,7 +73,10 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"schema": "stage",
-										"table": "@item"
+										"table": {
+											"value": "@item()",
+											"type": "Expression"
+										}
 									}
 								}
 							]
@@ -107,7 +111,7 @@
 												"direction": "Input"
 											}
 										],
-										"type": "Query",
+										"type": "NonQuery",
 										"text": "DECLARE @stmt nvarchar(max) = 'TRUNCATE TABLE stage.' + @table\nEXEC sp_executesql @stmt"
 									}
 								]
