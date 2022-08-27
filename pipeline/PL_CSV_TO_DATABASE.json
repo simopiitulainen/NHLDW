@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "ForEach1",
+				"name": "Loop through folders",
 				"type": "ForEach",
 				"dependsOn": [],
 				"userProperties": [],
@@ -14,12 +14,12 @@
 					},
 					"activities": [
 						{
-							"name": "Data to SQL Staging tables",
+							"name": "Create and load staging tables",
 							"description": "Copies team data from JSON to SQL staging area",
 							"type": "Copy",
 							"dependsOn": [
 								{
-									"activity": "Script1",
+									"activity": "Drop Staging tables",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -82,7 +82,7 @@
 							]
 						},
 						{
-							"name": "Script1",
+							"name": "Drop Staging tables",
 							"type": "Script",
 							"dependsOn": [],
 							"policy": {
