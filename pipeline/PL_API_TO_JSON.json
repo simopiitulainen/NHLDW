@@ -1,0 +1,143 @@
+{
+	"name": "PL_API_TO_JSON",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get API Paths to loop",
+				"type": "Script",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "NHLDW",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": "SELECT [relative_path] FROM dbo.API_PATHS"
+						}
+					]
+				}
+			},
+			{
+				"name": "Loop through API Endpoints",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Set results to Array variable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('relative_paths')",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Copy data from API to JSON",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "JsonSource",
+									"storeSettings": {
+										"type": "HttpReadSettings",
+										"requestMethod": "GET"
+									},
+									"formatSettings": {
+										"type": "JsonReadSettings"
+									}
+								},
+								"sink": {
+									"type": "JsonSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings",
+										"maxConcurrentConnections": 1
+									},
+									"formatSettings": {
+										"type": "JsonWriteSettings",
+										"filePattern": "arrayOfObjects"
+									}
+								},
+								"enableStaging": false,
+								"parallelCopies": 1
+							},
+							"inputs": [
+								{
+									"referenceName": "NHL_API_JSON",
+									"type": "DatasetReference",
+									"parameters": {
+										"relativePath": {
+											"value": "@item().relative_path",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "NHLDW_STAGE_STORAGE",
+									"type": "DatasetReference",
+									"parameters": {
+										"endpoint": {
+											"value": "@item().relative_path",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "Set results to Array variable",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Get API Paths to loop",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "relative_paths",
+					"value": {
+						"value": "@activity('Get API Paths to loop').output.ResultSets[0].rows",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"concurrency": 1,
+		"variables": {
+			"relative_paths": {
+				"type": "Array"
+			}
+		},
+		"annotations": []
+	}
+}

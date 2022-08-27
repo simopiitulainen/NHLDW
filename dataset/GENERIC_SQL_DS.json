@@ -1,0 +1,32 @@
+{
+	"name": "GENERIC_SQL_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "NHLDW",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"schema": {
+				"type": "string",
+				"defaultValue": "stage"
+			},
+			"table": {
+				"type": "string",
+				"defaultValue": "teams"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table",
+				"type": "Expression"
+			}
+		}
+	}
+}

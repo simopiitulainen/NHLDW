@@ -1,0 +1,18 @@
+{
+	"name": "nhldwstaging",
+	"properties": {
+		"description": "Storage account to stage files fetched from the NHL Stats API",
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"connectionString": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "NHLDW_KW",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "nhldwstaging"
+			}
+		}
+	}
+}

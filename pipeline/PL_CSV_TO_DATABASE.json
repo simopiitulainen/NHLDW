@@ -1,0 +1,139 @@
+{
+	"name": "PL_CSV_TO_DATABASE",
+	"properties": {
+		"activities": [
+			{
+				"name": "Loop through folders",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.folders",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Create and load staging tables",
+							"description": "Copies team data from JSON to SQL staging area",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "Drop Staging tables",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": false,
+										"modifiedDatetimeStart": "2022-08-27T00:00:00.945Z",
+										"wildcardFolderPath": {
+											"value": "@concat(pipeline().parameters.datadate,'/', item())",
+											"type": "Expression"
+										},
+										"wildcardFileName": "part*.csv",
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false,
+									"tableOption": "autoCreate",
+									"disableMetricsCollection": false
+								},
+								"enableStaging": false,
+								"dataIntegrationUnits": 2
+							},
+							"inputs": [
+								{
+									"referenceName": "Generic_Csv",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "GENERIC_SQL_DS",
+									"type": "DatasetReference",
+									"parameters": {
+										"schema": "stage",
+										"table": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"name": "Drop Staging tables",
+							"type": "Script",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"linkedServiceName": {
+								"referenceName": "NHLDW",
+								"type": "LinkedServiceReference"
+							},
+							"typeProperties": {
+								"scripts": [
+									{
+										"parameters": [
+											{
+												"name": "table",
+												"type": "String",
+												"value": {
+													"value": "@item()",
+													"type": "Expression"
+												},
+												"direction": "Input"
+											}
+										],
+										"type": "NonQuery",
+										"text": "DECLARE @stmt nvarchar(max) = 'DROP TABLE IF EXISTS stage.' + @table\nEXEC sp_executesql @stmt"
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"folders": {
+				"type": "array",
+				"defaultValue": [
+					"teams",
+					"standings"
+				]
+			},
+			"datadate": {
+				"type": "string",
+				"defaultValue": "20220827"
+			}
+		},
+		"annotations": []
+	}
+}

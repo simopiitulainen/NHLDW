@@ -1,0 +1,10 @@
+{
+	"name": "NHLDW_KW",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://NHLDW-KW.vault.azure.net/"
+		}
+	}
+}

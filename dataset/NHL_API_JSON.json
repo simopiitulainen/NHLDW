@@ -1,0 +1,26 @@
+{
+	"name": "NHL_API_JSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "NHL_API_HTTP",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"relativePath": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@dataset().relativePath",
+					"type": "Expression"
+				}
+			}
+		},
+		"schema": {}
+	}
+}

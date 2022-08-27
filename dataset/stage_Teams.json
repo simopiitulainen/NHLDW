@@ -1,0 +1,90 @@
+{
+	"name": "stage_Teams",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "NHLDW",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "name",
+				"type": "varchar"
+			},
+			{
+				"name": "link",
+				"type": "varchar"
+			},
+			{
+				"name": "venue_name",
+				"type": "varchar"
+			},
+			{
+				"name": "venue_link",
+				"type": "varchar"
+			},
+			{
+				"name": "city",
+				"type": "varchar"
+			},
+			{
+				"name": "abbreviation",
+				"type": "varchar"
+			},
+			{
+				"name": "team_name",
+				"type": "varchar"
+			},
+			{
+				"name": "location_name",
+				"type": "varchar"
+			},
+			{
+				"name": "firstYearOfPlay",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "division_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "division_name",
+				"type": "varchar"
+			},
+			{
+				"name": "name_short",
+				"type": "varchar"
+			},
+			{
+				"name": "conference_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "fanchise_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "officialSiteUrl",
+				"type": "varchar"
+			},
+			{
+				"name": "active",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "stage",
+			"table": "teamss"
+		}
+	}
+}

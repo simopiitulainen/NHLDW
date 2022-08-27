@@ -1,0 +1,23 @@
+{
+	"name": "NHLDW_STAGE_STORAGE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "nhldwstaging_dl2",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"endpoint": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "staging"
+			}
+		},
+		"schema": {}
+	}
+}

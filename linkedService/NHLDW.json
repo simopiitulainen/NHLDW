@@ -1,0 +1,20 @@
+{
+	"name": "NHLDW",
+	"properties": {
+		"description": "The NHLDW Database",
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=nhldw.database.windows.net;Initial Catalog=NHLDW;User ID=nhldwadmin",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "NHLDW_KW",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "nhldwadmin",
+				"secretVersion": "072dc19ad3eb4802afa288a3f7fdc8bb"
+			}
+		}
+	}
+}

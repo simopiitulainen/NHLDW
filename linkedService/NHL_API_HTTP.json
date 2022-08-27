@@ -1,0 +1,13 @@
+{
+	"name": "NHL_API_HTTP",
+	"properties": {
+		"description": "NHL stats api base url",
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://statsapi.web.nhl.com/api/v1/",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
