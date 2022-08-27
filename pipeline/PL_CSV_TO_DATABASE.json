@@ -41,7 +41,7 @@
 										"recursive": false,
 										"modifiedDatetimeStart": "2022-08-27T00:00:00.945Z",
 										"wildcardFolderPath": {
-											"value": "@item()",
+											"value": "@concat(pipeline().parameters.datadate,'/', item())",
 											"type": "Expression"
 										},
 										"wildcardFileName": "part*.csv",
@@ -128,6 +128,10 @@
 					"teams",
 					"standings"
 				]
+			},
+			"datadate": {
+				"type": "string",
+				"defaultValue": "20220827"
 			}
 		},
 		"annotations": []
