@@ -5,25 +5,15 @@
 			"referenceName": "nhldwstaging_dl2",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"folder": {
-				"type": "string",
-				"defaultValue": "teams"
-			}
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "part*.csv",
-				"folderPath": {
-					"value": "@dataset().folder",
-					"type": "Expression"
-				},
 				"fileSystem": "staging"
 			},
 			"columnDelimiter": ";",
+			"rowDelimiter": "\n",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
