@@ -409,7 +409,7 @@
 							"recursive": false,
 							"modifiedDatetimeStart": "2022-08-27T00:00:00.945Z",
 							"wildcardFolderPath": "standings",
-							"wildcardFileName": "part*",
+							"wildcardFileName": "part*.csv",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -424,7 +424,21 @@
 					},
 					"enableStaging": false,
 					"enableSkipIncompatibleRow": true,
-					"validateDataConsistency": false
+					"validateDataConsistency": false,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": true
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "nhldwstaging_dl2",
+								"type": "LinkedServiceReference"
+							},
+							"path": "staging"
+						}
+					}
 				},
 				"inputs": [
 					{
@@ -438,7 +452,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"schema": "stage",
-							"table": "teams"
+							"table": "standings"
 						}
 					}
 				]
