@@ -72,7 +72,7 @@
 								"sink": {
 									"type": "JsonSink",
 									"storeSettings": {
-										"type": "AzureBlobStorageWriteSettings",
+										"type": "AzureBlobFSWriteSettings",
 										"maxConcurrentConnections": 1
 									},
 									"formatSettings": {
