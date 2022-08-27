@@ -13,8 +13,8 @@
 				"fileSystem": "staging"
 			},
 			"columnDelimiter": ";",
-			"rowDelimiter": "\n",
-			"escapeChar": "\\",
+			"encodingName": "UTF-8",
+			"escapeChar": "",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
