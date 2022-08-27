@@ -112,7 +112,7 @@
 											}
 										],
 										"type": "NonQuery",
-										"text": "DECLARE @stmt nvarchar(max) = 'TRUNCATE TABLE stage.' + @table\nEXEC sp_executesql @stmt"
+										"text": "DECLARE @stmt nvarchar(max) = 'TRUNCATE TABLE stage.' + @table\n--EXEC sp_executesql @stmt"
 									}
 								]
 							}
