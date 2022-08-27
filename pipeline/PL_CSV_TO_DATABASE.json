@@ -409,7 +409,7 @@
 							"recursive": false,
 							"modifiedDatetimeStart": "2022-08-27T00:00:00.945Z",
 							"wildcardFolderPath": "standings",
-							"wildcardFileName": "part*.csv",
+							"wildcardFileName": "*.csv",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
