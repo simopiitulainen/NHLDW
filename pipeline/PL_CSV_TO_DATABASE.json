@@ -452,10 +452,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"schema": "stage",
-							"table": {
-								"value": "@pipeline().parameters.folders",
-								"type": "Expression"
-							}
+							"table": "standings"
 						}
 					}
 				]
